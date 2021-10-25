@@ -1,0 +1,189 @@
+---
+output:
+  word_document: default
+  html_document: default
+---
+
+
+
+#**Semantic fluency STN**
+
+###Load packages
+
+
+```{r, echo=FALSE}
+library(xlsx)
+library(readxl)
+library(MAd)
+library(esc)
+library(ez)
+library(knitr)
+library(compute.es)
+library(meta)
+library(psych)
+library(rJava)
+library(rmeta)
+library(xlsxjars)
+library(xlsx)
+library(xtable)
+library(metafor)
+library(markdown)
+library(highr)
+library(effects)
+library(extrafont)
+```
+
+
+
+```{r, echo=FALSE}
+choose_font(c("Helvetica", "serif"), quiet = TRUE)
+```
+
+#**Depresion analysis**
+
+```{r, echo=FALSE}
+
+library(readxl)
+Semantic<- read_excel("C:/Users/madalina.bucur/Google Drive/Year 2/Meta 4/0.5 R data all/Semantic fluency_7B.xlsx", 
+    col_types = c("numeric", "text", "numeric", 
+        "numeric", "numeric", "numeric", 
+        "numeric", "numeric", "numeric", 
+        "numeric", "numeric", "numeric", 
+        "numeric", "numeric", "numeric", 
+        "numeric"))
+View(Semantic)
+```
+
+
+
+
+```{r}
+library(metafor)
+Semantic_1<- rma(yi = yi, vi = vi, data = Semantic, measure="SMD", method="REML",  slab = Semantic$study)
+summary(Semantic_1)
+confint(Semantic_1)
+```
+
+
+
+
+
+```{r fig.height=40, fig.width=40}
+### decrease margins so the full space is used
+par(mar=c(4,4,1,2))
+choose_font(c("helvetica", "serif"), quiet = TRUE)
+
+plotSemantic<- forest(Semantic_1,annotate=TRUE, addfit=TRUE, addcred=FALSE, showweights=TRUE, xlim = c(-6, 3),  cex=2.5,  ylim=c(-2,26.8), order=order(Semantic$ID), alim=c(-5,1), mlab="", slab = Semantic$study, efac = 1.5, top=2)
+
+
+text(-5.58, 26.4, "Author(s) and Year ", pos=1, cex=2.5)
+text(1.85, 26.2, "Weights   ES    [95% CI]", pos=4, cex=2.5)
+
+### add text with Q-value, dfs, p-value, and I^2 statistic
+text(1.9, -2, pos=1, cex=2, bquote(paste("Heterogeneity Test (Q = ",
+     .(formatC(Semantic_1$QE, digits=2, format="f")), ", df = ", .(Semantic_1$k - Semantic_1$p),
+     ", p = ", .(formatC(Semantic_1$QEp, digits=2, format="f")), "; ", I^2, " = ",
+     .(formatC(Semantic_1$I2, digits=1, format="f")), "%)")))
+
+title("Figure 9A. Forest Plot Semantic fluency STN", cex.main=2)
+```
+
+
+
+
+```{r fig.height=40, fig.width=30}
+### decrease margins so the full space is used
+par(mar=c(4,4,1,2))
+choose_font(c("helvetica", "serif"), quiet = TRUE)
+
+plotSemantic<- forest(Semantic_1,annotate=TRUE, addfit=TRUE, addcred=FALSE, showweights=TRUE, xlim = c(-6, 3),  cex=3,  ylim=c(-2,23.8), order=order(Semantic$ID), alim=c(-5,1), mlab="", slab = Semantic$study, efac = 1.5, top=2)
+
+
+text(-5.3, 23.4, "Author(s) and Year ", pos=1, cex=3)
+text(1.1, 23.2, "Weights   ES    [95% CI]", pos=4, cex=3)
+
+### add text with Q-value, dfs, p-value, and I^2 statistic
+text(1.6, -2, pos=1, cex=2, bquote(paste("Heterogeneity Test (Q = ",
+     .(formatC(Semantic_1$QE, digits=2, format="f")), ", df = ", .(Semantic_1$k - Semantic_1$p),
+     ", p = ", .(formatC(Semantic_1$QEp, digits=2, format="f")), "; ", I^2, " = ",
+     .(formatC(Semantic_1$I2, digits=1, format="f")), "%)")))
+
+```
+
+
+# Bias analysis 
+
+##Baujat plot
+```{r}
+inf_Semantic_1 <- influence(Semantic_1,  slab = Semantic$study)
+print(inf_Semantic_1)
+plot(inf_Semantic_1)
+baujat(Semantic_1)
+title("Figure 9A.1: Baujat plot Semantic fluency STN", cex.main=0.8) 
+```
+
+
+```{r}
+inf_Semantic_1 <- influence(Semantic_1,  slab = Semantic$study)
+print(inf_Semantic_1)
+plot(inf_Semantic_1)
+baujat(Semantic_1)
+ 
+```
+###Trim and Fill
+
+```{r}
+
+fill_Semantic_1<- trimfill(Semantic_1)
+fill_Semantic_1
+funnel(fill_Semantic_1)
+title("Figure 9A.2: Semantic fluency STN
+      Publication bias assessed by trim and fill", cex.main=0.8)
+```
+
+```{r}
+
+fill_Semantic_1<- trimfill(Semantic_1)
+fill_Semantic_1
+funnel(fill_Semantic_1)
+
+```
+# ... The next commands will print a funnel plot, perform Egger's regression test and the rank correlation test for the biased dataset.
+
+```{r}
+
+fill_Semantic_1<- trimfill(Semantic_1)
+fill_Semantic_1
+funnel(fill_Semantic_1)
+```
+
+```{r}
+
+regtest(Semantic_1) 
+ranktest(Semantic_1) 
+
+funnel(Semantic_1)
+title ("Figure 9A.2: Funnel plot of Semantic fluency STN", cex.main=0.9) 
+```
+
+```{r}
+
+regtest(Semantic_1) 
+ranktest(Semantic_1) 
+
+funnel(Semantic_1)
+```
+
+```{r}
+regtest(Semantic_1)
+fill_Semantic_1<- trimfill(Semantic_1)
+funnel(trimfill(Semantic_1))
+title ("Figure 9A.2: Trim and Fill Funnel plot of Semantic fluency STN", cex.main=0.9) 
+```
+
+```{r}
+regtest(Semantic_1)
+fill_Semantic_1<- trimfill(Semantic_1)
+funnel(trimfill(Semantic_1))
+
+```
