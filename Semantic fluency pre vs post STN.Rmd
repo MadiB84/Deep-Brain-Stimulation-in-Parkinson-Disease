@@ -3,12 +3,6 @@
 
 
 ```{r, echo=FALSE}
-choose_font(c("Helvetica", "serif"), quiet = TRUE)
-```
-
-
-
-```{r, echo=FALSE}
 
 library(readxl)
 Semantic<- read_excel("C:/Users/madalina.bucur/Google Drive/Year 2/Meta 4/0.5 R data all/Semantic fluency_7B.xlsx", 
@@ -22,17 +16,12 @@ View(Semantic)
 ```
 
 
-
-
 ```{r}
 library(metafor)
 Semantic_1<- rma(yi = yi, vi = vi, data = Semantic, measure="SMD", method="REML",  slab = Semantic$study)
 summary(Semantic_1)
 confint(Semantic_1)
 ```
-
-
-
 
 
 ```{r fig.height=40, fig.width=40}
@@ -56,8 +45,6 @@ title("Figure 9A. Forest Plot Semantic fluency STN", cex.main=2)
 ```
 
 
-
-
 ```{r fig.height=40, fig.width=30}
 ### decrease margins so the full space is used
 par(mar=c(4,4,1,2))
@@ -77,7 +64,6 @@ text(1.6, -2, pos=1, cex=2, bquote(paste("Heterogeneity Test (Q = ",
 
 ```
 
-
 # Bias analysis 
 
 ##Baujat plot
@@ -89,7 +75,6 @@ baujat(Semantic_1)
 title("Figure 9A.1: Baujat plot Semantic fluency STN", cex.main=0.8) 
 ```
 
-
 ```{r}
 inf_Semantic_1 <- influence(Semantic_1,  slab = Semantic$study)
 print(inf_Semantic_1)
@@ -100,7 +85,6 @@ baujat(Semantic_1)
 ###Trim and Fill
 
 ```{r}
-
 fill_Semantic_1<- trimfill(Semantic_1)
 fill_Semantic_1
 funnel(fill_Semantic_1)
@@ -125,19 +109,15 @@ funnel(fill_Semantic_1)
 ```
 
 ```{r}
-
 regtest(Semantic_1) 
 ranktest(Semantic_1) 
-
 funnel(Semantic_1)
 title ("Figure 9A.2: Funnel plot of Semantic fluency STN", cex.main=0.9) 
 ```
 
 ```{r}
-
 regtest(Semantic_1) 
 ranktest(Semantic_1) 
-
 funnel(Semantic_1)
 ```
 
@@ -152,5 +132,4 @@ title ("Figure 9A.2: Trim and Fill Funnel plot of Semantic fluency STN", cex.mai
 regtest(Semantic_1)
 fill_Semantic_1<- trimfill(Semantic_1)
 funnel(trimfill(Semantic_1))
-
 ```
