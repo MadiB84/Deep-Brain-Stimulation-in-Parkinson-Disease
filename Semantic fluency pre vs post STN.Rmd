@@ -5,13 +5,7 @@
 ```{r, echo=FALSE}
 
 library(readxl)
-Semantic<- read_excel("C:/Users/madalina.bucur/Google Drive/Year 2/Meta 4/0.5 R data all/Semantic fluency_7B.xlsx", 
-    col_types = c("numeric", "text", "numeric", 
-        "numeric", "numeric", "numeric", 
-        "numeric", "numeric", "numeric", 
-        "numeric", "numeric", "numeric", 
-        "numeric", "numeric", "numeric", 
-        "numeric"))
+Semantic<- read_excel("C:/Users/Semantic fluency.xlsx"))
 View(Semantic)
 ```
 
@@ -41,7 +35,7 @@ text(1.9, -2, pos=1, cex=2, bquote(paste("Heterogeneity Test (Q = ",
      ", p = ", .(formatC(Semantic_1$QEp, digits=2, format="f")), "; ", I^2, " = ",
      .(formatC(Semantic_1$I2, digits=1, format="f")), "%)")))
 
-title("Figure 9A. Forest Plot Semantic fluency STN", cex.main=2)
+title(" Forest Plot Semantic fluency STN", cex.main=2)
 ```
 
 
