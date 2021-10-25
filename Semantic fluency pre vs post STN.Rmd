@@ -1,45 +1,12 @@
----
-output:
-  word_document: default
-  html_document: default
----
-
-
 
 #**Semantic fluency STN**
-
-###Load packages
-
-
-```{r, echo=FALSE}
-library(xlsx)
-library(readxl)
-library(MAd)
-library(esc)
-library(ez)
-library(knitr)
-library(compute.es)
-library(meta)
-library(psych)
-library(rJava)
-library(rmeta)
-library(xlsxjars)
-library(xlsx)
-library(xtable)
-library(metafor)
-library(markdown)
-library(highr)
-library(effects)
-library(extrafont)
-```
-
 
 
 ```{r, echo=FALSE}
 choose_font(c("Helvetica", "serif"), quiet = TRUE)
 ```
 
-#**Depresion analysis**
+
 
 ```{r, echo=FALSE}
 
